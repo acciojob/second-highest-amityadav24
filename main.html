@@ -1,32 +1,74 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Second Highest Element Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f2f2f2;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 100%;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+  </style>
 </head>
+<body>
 
-<body>	
-	<script>
-		function secondHighest(arr) {
-			//Write your code here
-			
-		}
+  <h2>Find Second Highest Element</h2>
 
-		function Main() {
-			var n = prompt("Enter the number of elements");
-			var arr = [];
-			for (var i = 0; i < n; i++) {
-				arr[i] = prompt("Enter element " + (i+1));
-			}
-			alert(secondHighest(arr));
-		}
-		Main();
-	</script>
+  <label for="arrayInput">Enter an array (comma separated):</label>
+  <input type="text" id="arrayInput" placeholder="Example: 5,1,2,3,4">
 
-    <script type="text/javascript" src="./script.js">
-</script>
+  <button onclick="findSecondHighest()">Find Second Highest</button>
+
+  <div id="output"></div>
+
+  <script>
+    function secondHighest(arr) {
+      if (arr.length < 2) return -Infinity;
+
+      let max = -Infinity;
+      let secondMax = -Infinity;
+
+      for (let num of arr) {
+        if (num > max) {
+          secondMax = max;
+          max = num;
+        } else if (num < max && num > secondMax) {
+          secondMax = num;
+        }
+      }
+
+      return secondMax;
+    }
+
+    function findSecondHighest() {
+      const input = document.getElementById("arrayInput").value;
+      const outputDiv = document.getElementById("output");
+
+      if (!input.trim()) {
+        outputDiv.innerText = "Please enter a valid array.";
+        return;
+      }
+
+      const arr = input.split(",").map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+      const result = secondHighest(arr);
+
+      outputDiv.innerText = `Second Highest Element: ${result}`;
+    }
+  </script>
 
 </body>
-
 </html>
